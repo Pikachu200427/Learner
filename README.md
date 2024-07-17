@@ -1,3 +1,3 @@
 # Learner
-Learning something new
-solution to your queries
+Learning something New<br>
+Solution to your Queries

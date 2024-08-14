@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instructions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color:#e0f7fa;
+            margin: 0;
+            padding: 20px;
+        }
+        .container{
+            width: 90%;
+            margin: 40px auto;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color:aqua;
+        }
+        .container h2{
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .container li{
+            text-align: left;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .container button{
+            padding: 4px 9px;
+            background-color:azure;
+            color: black;
+            cursor: pointer;
+            margin-top: 10px;
+            display: left;
+
+        }
+        .green button {
+            background-color: green;
+            color:white;
+            display: inline;
+        }
+        .red button {
+            background-color: red;
+            color:white;
+            display: inline;
+        }
+        .purple button {
+            background-color: purple;
+            color: white;
+            display: inline;
+        }
+        .grey button {
+            background-color: grey;
+            color: white;
+            display: inline;
+        }
+        .check {
+            padding: 20px ;
+            border-top: 2px black solid;
+            
+        }
+        .red1{
+            color: red;
+        }
+        .check input {
+            color: red;
+        }
+        .check button {
+            width: 100%;
+            padding: 5px 30px;
+            background-color:darkgreen;
+            color: white;
+        }
+    </style>
+    <script language="JavaScript">
+        function redirectToExamPortal(){
+            const checkbox = document.getElementById("computer");
+            if(checkbox.checked){
+                window.location.href = "exam-portal.html";
+            }
+            else{
+                alert("Please confirm that the computer is in proper working condition and that you have read and understood the instructions.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>General Instructions :</h2>
+        <ul>
+            <li>Kindly enter your correct credentials to proceed further.</li>
+            <li>After logging in, please wait for the invigilator's instructions.</li>
+            <li>Once you have completed your exam, kindly click on the 'Submit' button to submit your answers.</li>
+            <li>Your examination time will be 30 minutes.</li>
+            <li>Please note that you will not be able to take the exam again after logging out.</li>
+            <li>Question Marking : </li>
+            <button type="button">1</button><span>    This Question has not been visited yet.</span>
+            <div class ="red">
+                <button type="button">2</button><span>    This has been visited, but not answered.</span>
+            </div>
+            <div class="green">
+                <button type="button">3</button><span>    This has been answered and will be considered for Evaluation.</span>
+            </div>
+            <div class="purple">
+                <button type="button">4</button><span>    This question has been marked for review and has not been answered.</span>
+            </div>
+            <div class="grey">
+                <button type="button">5</button><span>    This question has been answered and marked for review. This will be considerd for Evaluation.</span>
+            </div>
+        </ul>
+        <h2>Navigating to a Question : </h2>
+        <ol>
+            <li>Click on the question number to navigate to that particular question.</li>
+            <li>To go back to the previous question, click on the 'Back' button.</li>
+            <li>To go to the next question, click on the 'Next' button.</li>
+            <li>To mark a question for review, click on the respective button next to the question number.</li>
+            <li>To unmark a question for review, click on the 'Remove Review' button next to the question number.</li>
+            <li>To submit your answers, click on the 'Submit' button.</li>
+        </ol>
+        <h2>Answering to a Question : </h2>
+        <ol>
+            <li>Choose the correct option from the provided options for each question.</li>
+            <li>To select multiple options, hold down the Ctrl or Command key while clicking on the options.</li>
+            <li>To clear all selected options, click on the 'Clear' button.</li>
+            <li>To add a comment to a question, type in the comment box and click on the 'Add Comment' button.</li>
+            <li>To remove a comment from a question, click on the 'Remove Comment' button next to the comment.</li>
+            <li>To edit a comment, click on the 'Edit' button next to the comment and make your changes.</li>
+            <li>To submit your answers, click on the 'Submit' button.</li>
+        </ol>
+        <div class="check">
+            <p>Choose your default Language : English</p>
+            <p class="red1">Please note all the Questions will appear in your default Language. This language can be changed for a Particular question later on.</p>
+            <input type="checkbox" id="computer" name=""> <span class="red1">The Computer provided to me is in proper working condition. I have read and understood the instructions given above.</span>
+            <br>
+            <br>
+            <button type="button" id="submit" name="" onclick="redirectToExamPortal()">I'm Ready to Begin &#9989;</button>
+        </div>
+    </div>
+</body>
+</html>

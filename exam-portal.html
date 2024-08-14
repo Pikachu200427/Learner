@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Portal</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        .head {
+            background-color: #002147;
+            padding: 12px 20px; 
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .timer {
+            background-color: transparent;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        .content-wrapper {
+            display: flex;
+            flex: 1;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .main-content {
+            background-color: white;
+            padding: 10px;
+            width: 75%;
+            border-right: 2px solid black;
+        }
+        .main-content .option-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+        .main-content .option-list li {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .main-content .option-list li:hover {
+            background-color: #e0f7fa;
+        }
+        .main-content .option-button {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #0288d1;
+            color: white;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+        .main-content .option-text {
+            flex-grow: 1;
+            font-size: 1.1em;
+            color: #333;
+        }
+        .main-content .option-list .correct {
+            background-color: #4CAF50; /* Green */
+            color: white;
+        }
+        .main-content .option-list .incorrect {
+            background-color: #f44336; /* Red */
+            color: white;
+        }
+        .side-content {
+            background-color: white;
+            padding: 20px;
+            width: 25%;
+            box-sizing: border-box;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 5px;
+            margin-top: 20px;
+        }
+        .grid-item {
+            padding: 10px;
+            text-align: center;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .grid-item.review {
+            background-color: #9C27B0;
+            color: white;
+        }
+        .grid-item.answered {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .grid-item.not-answered {
+            background-color: #f44336;
+            color: white;
+        }
+        .grid-item.not-visited {
+            background-color: #9E9E9E;
+            color: white;
+        }
+        .legend {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        .legend div {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .legend div span {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+            border-radius: 3px;
+        }
+        .legend .answered span {
+            background-color: #4CAF50;
+        }
+        .legend .not-answered span {
+            background-color: #f44336;
+        }
+        .legend .review span {
+            background-color: #9C27B0;
+        }
+        .legend .not-visited span {
+            background-color: #9E9E9E;
+        }
+        .finish-test {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .finish-test button {
+            background-color: #f44336;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .main-content button {
+            width: 150px;
+            margin-right: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+        .timer {
+            background-color: transparent;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="head">
+        <div>Mock Test</div>
+        <div class="timer" id="timer">30:00</div>
+    </div>
+    <div class="content-wrapper">
+        <div class="main-content" id="question1">
+            <p>Q1 of 10&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;CSE Java</p>
+            <p style="font-size: large;">Which of the following option leads to the portability and security of Java?</p>
+
+            <ul class="option-list">
+                <li onclick="markOption(this, true)" >
+                    <div class="option-button">1</div>
+                    <div class="option-text">Bytecode is executed by JVM</div>
+                </li>
+                <li onclick="markOption(this, false)" >
+                    <div class="option-button">2</div>
+                    <div class="option-text">The applet makes the Java code secure and portable</div>
+                </li>
+                <li onclick="markOption(this, false)" >
+                    <div class="option-button">3</div>
+                    <div class="option-text">Use of exception handling</div>
+                </li>
+                <li onclick="markOption(this, false)" >
+                    <div class="option-button">4</div>
+                    <div class="option-text">Dynamic binding between objects</div>
+                </li>
+            </ul>
+            <div class="button-group" style="text-align: bottom; padding-top: 380px;">
+                <button type="button" id="clearAnswer" class="button" onclick="clearSelection()">Clear Answer</button>
+                <button type="button" id="markForReview" class="button" onclick="markForReview(1)">Mark for Review</button>
+                <button type="button" id="saveNext" class="button" onclick="nextQuestion(1)">Save & Next</button>
+            </div>
+        </div>
+        <div class="main-content hidden" id="question2">
+            <p>Q2 of 10&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;CSE Java</p>
+            <p style="font-size: large;">Which of the following is not a Java features?</p>
+
+            <ul class="option-list">
+                <li onclick="markOption(this, false)" >
+                    <div class="option-button">1</div>
+                    <div class="option-text">Dynamic</div>
+                </li>
+                <li onclick="markOption(this, false)" >
+                    <div class="option-button">2</div>
+                    <div class="option-text">Architecture Neutral</div>
+                </li>
+                <li onclick="markOption(this, true)" >
+                    <div class="option-button">3</div>
+                    <div class="option-text">Use of pointers</div>
+                </li>
+                <li onclick="markOption(this, false)" >
+                    <div class="option-button">4</div>
+                    <div class="option-text">Object-oriented</div>
+                </li>
+            </ul>
+            <div class="button-group" style="text-align: bottom; padding-top: 380px;">
+                <button type="button" id="clearAnswer" class="button" onclick="clearSelection()">Clear Answer</button>
+                <button type="button" id="markForReview" class="button" onclick="markForReview(2)">Mark for Review</button>
+                <button type="button" id="saveNext" class="button" onclick="nextQuestion(2)">Save & Next</button>
+            </div>
+        </div>
+        <div class="main-content hidden" id="question3">
+            <p>Q3 of 10&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;CSE Java</p>
+            <p style="font-size: large;">Which of the following is not a Java language feature?</p>
+            <ul class="option-list">
+                <li onclick="markOption(this, false)" >
+                    <div class="option-button">1</div>
+                    <div class="option-text">Static typing</div>
+                </li>
+                <li onclick="markOption(this, false)" >
+                    <div class="option-button">2</div>
+                    <div class="option-text">Concurrency</div>
+                </li>
+                <li onclick="markOption(this, false)" >
+                    <div class="option-button">3</div>
+                    <div class="option-text">Dynamic binding</div>
+                </li>
+                <li onclick="markOption(this, true)" >
+                    <div class="option-button">4</div>
+                    <div class="option-text">Object-oriented</div>
+                </li>
+            </ul>
+            <div class="button-group" style="text-align: bottom; padding-top: 380px;">
+                <button type="button" id="clearAnswer" class="button" onclick="clearSelection()">Clear Answer</button>
+                <button type="button" id="markForReview" class="button" onclick="markForReview(3)">Mark for Review</button>
+                <button type="button" id="saveNext" class="button" onclick="nextQuestion(3)">Save & Next</button>
+            </div>
+        </div>
+        <div class="main-content hidden" id="question4">
+            <p>Q4 of 10&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;CSE Java</p>
+            <p style="font-size: large;">Which of the following is a valid declaration of a char?<br>
+            </p>
+            <ul class="option-list">
+                <li onclick="markOption(this, true)" >
+                    <div class="option-button">1</div>
+                    <div class="option-text">char ch = '\utea';</div>
+                </li>
+                <li onclick="markOption(this, false)" >
+                    <div class="option-button">2</div>
+                    <div class="option-text">char ca = 'tea';</div>
+                </li>
+                <li onclick="markOption(this, false)" >
+                    <div class="option-button">3</div>
+                    <div class="option-text">char cr = \u0223;</div>
+                </li>
+                <li onclick="markoption(this, false)">
+                    <div class="option-button">4</div>
+                    <div class="option-text">char cc = '\itea';</div>
+                </li>
+            </ul>
+            <div class="button-group" style="text-align: bottom; padding-top: 380px;">
+                <button type="button" id="clearAnswer" class="button" onclick="clearSelection()">Clear Answer</button>
+                <button type="button" id="markForReview" class="button" onclick="markForReview(4)">Mark for Review</button>
+                <button type="button" id="saveNext" class="button" onclick="nextQuestion(4)">Save & Next</button>
+            </div>
+        </div>
+        <div class="main-content hidden" id="question5">
+            <p>Q5 of 10&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;CSE Java</p>
+            <p style="font-size: large;">What is the return type of the hashCode() method in the Object class?<br>
+            </p>
+            <ul class="option-list">
+                <li onclick="markOption(this, false)" >
+                    <div class="option-button">1</div>
+                    <div class="option-text">Object</div>
+                </li>
+                <li onclick="markOption(this, true)" >
+                    <div class="option-button">2</div>
+                    <div class="option-text">int</div>
+                </li>
+                <li onclick="markOption(this, false)" >
+                    <div class="option-button">3</div>
+                    <div class="option-text">long</div>
+                </li>
+                <li onclick="markoption(this, false)">
+                    <div class="option-button">4</div>
+                    <div class="option-text">void</div>
+                </li>
+            </ul>
+            <div class="button-group" style="text-align: bottom; padding-top: 380px;">
+                <button type="button" id="clearAnswer" class="button" onclick="clearSelection()">Clear Answer</button>
+                <button type="button" id="markForReview" class="button" onclick="markForReview(5)">Mark for Review</button>
+                <button type="button" id="saveNext" class="button" onclick="nextQuestion(5)">Save & Next</button>
+            </div>
+        </div>
+        <div class="main-content hidden" id="question6">
+            <p>Q6 of 10&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;CSE Java</p>
+            <p style="font-size: large;">Which of the following is a valid long literal?<br>
+            </p>
+            <ul class="option-list">
+                <li onclick="markOption(this, false)" >
+                    <div class="option-button">1</div>
+                    <div class="option-text">ABH8097</div>
+                </li>
+                <li onclick="markOption(this, false)" >
+                    <div class="option-button">2</div>
+                    <div class="option-text">L990023</div>
+                </li>
+                <li onclick="markOption(this, false)" >
+                    <div class="option-button">3</div>
+                    <div class="option-text">904423</div>
+                </li>
+                <li onclick="markoption(this, true)">
+                    <div class="option-button">4</div>
+                    <div class="option-text">0xnf029L</div>
+                </li>
+            </ul>
+            <div class="button-group" style="text-align: bottom; padding-top: 380px;">
+                <button type="button" id="clearAnswer" class="button" onclick="clearSelection()">Clear Answer</button>
+                <button type="button" id="markForReview" class="button" onclick="markForReview(6)">Mark for Review</button>
+                <button type="button" id="saveNext" class="button" onclick="nextQuestion(6)">Save & Next</button>
+            </div>
+        </div>
+        <div class="main-content hidden" id="question7">
+            <p>Q7 of 10&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;CSE Java</p>
+            <p style="font-size: large;">What does the expression float a = 35 / 0 return?<br>
+            </p>
+            <ul class="option-list">
+                <li onclick="markOption(this, false)" >
+                    <div class="option-button">1</div>
+                    <div class="option-text">0</div>
+                </li>
+                <li onclick="markOption(this, false)" >
+                    <div class="option-button">2</div>
+                    <div class="option-text">Not a Number</div>
+                </li>
+                <li onclick="markOption(this, true)" >
+                    <div class="option-button">3</div>
+                    <div class="option-text">Infinity</div>
+                </li>
+                <li onclick="markoption(this, false)">
+                    <div class="option-button">4</div>
+                    <div class="option-text">Run time exception</div>
+                </li>
+            </ul>
+            <div class="button-group" style="text-align: bottom; padding-top: 380px;">
+                <button type="button" id="clearAnswer" class="button" onclick="clearSelection()">Clear Answer</button>
+                <button type="button" id="markForReview" class="button" onclick="markForReview(7)">Mark for Review</button>
+                <button type="button" id="saveNext" class="button" onclick="nextQuestion(7)">Save & Next</button>
+            </div>
+        </div>
+        <div class="main-content hidden" id="question8">
+            <p>Q8 of 10&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;CSE Java</p>
+            <p style="font-size: large;">Evaluate the following Java expression, if x=3, y=5, and z=10:<br>++z + y - y + z + x++
+            </p>
+            <ul class="option-list">
+                <li onclick="markOption(this, false)" >
+                    <div class="option-button">1</div>
+                    <div class="option-text">24</div>
+                </li>
+                <li onclick="markOption(this, false)" >
+                    <div class="option-button">2</div>
+                    <div class="option-text">23</div>
+                </li>
+                <li onclick="markOption(this, false)" >
+                    <div class="option-button">3</div>
+                    <div class="option-text">20</div>
+                </li>
+                <li onclick="markoption(this, true)">
+                    <div class="option-button">4</div>
+                    <div class="option-text">25</div>
+                </li>
+            </ul>
+            <div class="button-group" style="text-align: bottom; padding-top: 380px;">
+                <button type="button" id="clearAnswer" class="button" onclick="clearSelection()">Clear Answer</button>
+                <button type="button" id="markForReview" class="button" onclick="markForReview(8)">Mark for Review</button>
+                <button type="button" id="saveNext" class="button" onclick="nextQuestion(8)">Save & Next</button>
+            </div>
+        </div>
+        <div class="main-content hidden" id="question9">
+            <p>Q9 of 10&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;CSE Java</p>
+            <p style="font-size: large;">What will be the output of the following program?<br>
+
+                public class Test {  <br>
+                public static void main(String[] args) {  <br>
+                    int count = 1;  <br>
+                    while (count <= 15) {  <br>
+                    System.out.println(count % 2 == 1 ? "***" : "+++++");  <br>
+                    ++count;  <br>
+                        }      // end while  <br>
+                    }       // end main   <br>
+                 } <br>
+            </p>
+            <ul class="option-list">
+                <li onclick="markOption(this, false)" >
+                    <div class="option-button">1</div>
+                    <div class="option-text">15 times ***</div>
+                </li>
+                <li onclick="markOption(this, false)" >
+                    <div class="option-button">2</div>
+                    <div class="option-text">15 times +++++</div>
+                </li>
+                <li onclick="markOption(this, true)" >
+                    <div class="option-button">3</div>
+                    <div class="option-text">8 times *** and 7 times +++++</div>
+                </li>
+                <li onclick="markoption(this, false)">
+                    <div class="option-button">4</div>
+                    <div class="option-text">Both will print only once</div>
+                </li>
+            </ul>
+            <div class="button-group" style="text-align: bottom; padding-top: 380px;">
+                <button type="button" id="clearAnswer" class="button" onclick="clearSelection()">Clear Answer</button>
+                <button type="button" id="markForReview" class="button" onclick="markForReview(9)">Mark for Review</button>
+                <button type="button" id="saveNext" class="button" onclick="nextQuestion(9)">Save & Next</button>
+            </div>
+        </div>
+        <div class="main-content hidden" id="question10">
+            <p>Q10 of 10&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;CSE Java</p>
+            <p style="font-size: large;">Which of the following for loop declaration is not valid?<br>
+            </p>
+            <ul class="option-list">
+                <li onclick="markOption(this, true)" >
+                    <div class="option-button">1</div>
+                    <div class="option-text">for ( int i = 99; i >= 0; i / 9 )</div>
+                </li>
+                <li onclick="markOption(this, false)" >
+                    <div class="option-button">2</div>
+                    <div class="option-text">for ( int i = 7; i <= 77; i += 7 )</div>
+                </li>
+                <li onclick="markOption(this, false)" >
+                    <div class="option-button">3</div>
+                    <div class="option-text">for ( int i = 20; i >= 2; - -i )</div>
+                </li>
+                <li onclick="markoption(this, false)">
+                    <div class="option-button">4</div>
+                    <div class="option-text">for ( int i = 2; i <= 20; i = 2* i )</div>
+                </li>
+            </ul>
+            <div class="button-group" style="text-align: bottom; padding-top: 380px;">
+                <button type="button" id="clearAnswer" class="button" onclick="clearSelection()">Clear Answer</button>
+                <button type="button" id="markForReview" class="button" onclick="markForReview(10)">Mark for Review</button>
+                <button type="button" id="saveNext" class="button" onclick="nextQuestion(10)">Save & Next</button>
+            </div>
+        </div>
+        
+        <div class="side-content">
+            <div class="grid-container">
+                <div class="grid-item not-visited" id="grid-item-1" onclick="showQuestion(1)">1</div>
+                <div class="grid-item not-visited" id="grid-item-2" onclick="showQuestion(2)">2</div>
+                <div class="grid-item not-visited" id="grid-item-3" onclick="showQuestion(3)">3</div>
+                <div class="grid-item not-visited" id="grid-item-4" onclick="showQuestion(4)">4</div>
+                <div class="grid-item not-visited" id="grid-item-5" onclick="showQuestion(5)">5</div>
+                <div class="grid-item not-visited" id="grid-item-6" onclick="showQuestion(6)">6</div>
+                <div class="grid-item not-visited" id="grid-item-7" onclick="showQuestion(7)">7</div>
+                <div class="grid-item not-visited" id="grid-item-8" onclick="showQuestion(8)">8</div>
+                <div class="grid-item not-visited" id="grid-item-9" onclick="showQuestion(9)">9</div>
+                <div class="grid-item not-visited" id="grid-item-10" onclick="showQuestion(10)">10</div>
+            </div>
+
+            <div class="legend">
+                <div class="answered"><span></span>Answered</div>
+                <div class="not-answered"><span></span>Not Answered</div>
+                <div class="review"><span></span>Marked for Review</div>
+                <div class="not-visited"><span></span>Not Visited</div>
+            </div>
+
+            <div class="finish-test">
+                <button id="finish" onclick="redirectToEnd()">Finish Test</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentAnswerStatus = false;
+
+        function markOption(element, isCorrect) {
+            currentAnswerStatus = true;
+            const options = document.querySelectorAll('.option-list li');
+            options.forEach(option => {
+                option.classList.remove('correct', 'incorrect');
+            });
+            if (isCorrect) {
+                element.classList.add('correct');
+            } else {
+                element.classList.add('incorrect');
+            }
+        }
+
+        function clearSelection() {
+            currentAnswerStatus = false;
+            const options = document.querySelectorAll('.option-list li');
+            options.forEach(option => {
+                option.classList.remove('correct', 'incorrect');
+            });
+        }
+
+        function markForReview(questionNumber) {
+            const currentGridItem = document.getElementById('grid-item-' + questionNumber);
+            currentGridItem.classList.remove('not-visited', 'answered');
+            currentGridItem.classList.add('review');
+        }
+
+        function nextQuestion(currentQuestionNumber) {
+            const currentQuestion = document.getElementById('question' + currentQuestionNumber);
+            const nextQuestionNumber = currentQuestionNumber + 1;
+            const nextQuestion = document.getElementById('question' + nextQuestionNumber);
+
+            if (nextQuestion) {
+                currentQuestion.classList.add('hidden');
+                nextQuestion.classList.remove('hidden');
+
+                const currentGridItem = document.getElementById('grid-item-' + currentQuestionNumber);
+                currentGridItem.classList.remove('not-visited', 'review');
+
+                if (currentAnswerStatus) {
+                    currentGridItem.classList.add('answered');
+                } else {
+                    currentGridItem.classList.add('not-answered');
+                }
+
+                currentAnswerStatus = false;
+            }
+        }
+
+        function showQuestion(questionNumber) {
+            const allQuestions = document.querySelectorAll('.main-content');
+            allQuestions.forEach(question => {
+                question.classList.add('hidden');
+            });
+
+            const selectedQuestion = document.getElementById('question' + questionNumber);
+            selectedQuestion.classList.remove('hidden');
+        }
+        var countDownTime = 30 * 60; 
+        var x = setInterval(function() {
+            var minutes = Math.floor(countDownTime / 60);
+            var seconds = countDownTime % 60;
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+            document.getElementById("timer").innerHTML = minutes + ":" + seconds;
+            if (countDownTime <= 0) {
+                clearInterval(x);
+                document.getElementById("timer").innerHTML = "EXPIRED";
+            } else {
+                countDownTime--;
+            }
+        }, 1000);
+        function redirectToEnd() {
+            window.location.href = "end.html";  
+        }
+    </script>
+</body>
+</html>

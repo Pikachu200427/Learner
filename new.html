@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gmail Login</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f1f1f1;
+        }
+        .login-container {
+            background-color: #fff;
+            padding: 40px 60px;
+            border-radius: 5px;
+            width: 400px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        .login-container img {
+            width: 100px;
+            margin-bottom: 20px;
+        }
+        .login-container h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .login-container p {
+            margin-bottom: 20px;
+            color: #666;
+        }
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .input-group input {
+            width: 355px;
+            height: 25px;
+            border-radius: 5px;
+            padding: 10px 20px;
+        }
+        .input-group input:hover{
+            background-color:  #e0e0e0;
+        }
+        .button-group button{
+            background-color: #1a73e8;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+            width: 400px;
+            margin-bottom: 10px;
+        }
+        .button-group button:hover{
+            background-color: #1967d2;
+        }
+        .create-account{
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #1a73e8;
+            cursor: pointer;
+        }
+        .footer a {
+            font-size: 15px;
+            margin-top: 30px;
+            text-decoration: none;
+            word-spacing: 5px;
+        }
+        .footer a:hover{
+            text-decoration: underline;
+        }
+        .hidden1 footer {
+            margin-top: 30px;
+            font-size: 14px;
+        }
+        .forgot-email {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+        .home-container { 
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            display:flex;
+            flex-direction: column;
+        }
+        .home-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container" id="login-Container">
+        <img src="https://www.gstatic.com/images/branding/googlelogo/1x/googlelogo_color_92x30dp.png" alt="Google Logo">
+        <h1>Sign in</h1>
+        <p>to continue to Gmail</p>
+        <form id="loginForm" >
+            <div id="step1" >
+                <div class="button-group">
+                    <button type="button" onclick="showstep2()">Sign in</button>
+                    <button type="button" onclick="">Create New Account</button>
+                </div>
+            </div>
+            <div id="step2" class="hidden">
+                <div class="input-group">
+                    <input type="email" id="email" name="email" required placeholder="Email or Phone">
+                </div>
+                <div class="button-group">
+                    <button type="button" onclick="showstep3()">Next</button>
+                </div>
+                <div class="create-account">
+                    <a href="#">Create account</a>
+                </div>
+                <div class="footer">
+                    <a href="#">Help</a>
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                </div>
+            </div>
+            <div id="step3" class="hidden">
+                <div class="input-group">
+                    <input type="password" id="password" name="password" required placeholder="Password">
+                </div>
+                <div class="button-group">
+                    <button type="submit" onclick="redirectToHome()">Sign in</button>
+                </div>
+                <div class="forgot-email">
+                    <a href="#">Forgot your email or password?</a>
+                </div>
+                <div class="footer">
+                    <a href="#">Help</a>
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script >
+        function showstep2(){ 
+            document.getElementById("step1").classList.add("hidden");
+            document.getElementById("step2").classList.remove("hidden");
+        }
+        function showstep3(){
+            document.getElementById("step2").classList.add("hidden");
+            document.getElementById("step3").classList.remove("hidden");
+        }
+        function showstep4(){
+            document.getElementById("login-Container").classList.add("hidden");
+            document.getElementById("step4").classList.remove("hidden");
+        }
+        function redirectToHome() {
+            window.location.href = "Homepage.html";
+        }
+    </script>
+</body>
+</html>

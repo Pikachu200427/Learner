@@ -4,16 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gmail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="gmail.css">
 </head>
-<body>
+<body style="background-color: #ebebec;">
     <div class="header">
-        <img src="/Html Project/photos/gmailLogo.png" class="logo">
-        <input type="text" placeholder="Search mail" class="search-box">
-        <button class="search-button"><img src="/Html Project/photos/search.png" title="search"></button>
-        <button class="support-button"><img src="/Html Project/photos/support.png" title="support"></button>
-        <img src="/Html Project/photos/setting.png" class="setting" title="setting">
-        <button class="account" ></button>
+        <div class="menu-bar">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+        <div class="logo">
+            <img src="gmailLogo.png" title="gmail">
+        </div>
+        <div class="search-box">
+            <input type="text" placeholder="Search mail" />
+            <i class="fa-solid fa-search"></i>
+        </div>
+        <div class="support">
+            <i class="fa-regular fa-circle-question"></i>
+        </div>
+        <div class="settings">
+            <i class="fa-solid fa-cog"></i>
+        </div>
+        <div class="account">
+            <img src="flag.jpg" alt="User" title="Google account">
+        </div>
+    </div>
+    <div class="main-panel">
+        <div class="left-panel">
+            <div class="compose">
+                <i class="fa-solid fa-plus"></i>
+                <span>Compose</span>
+            </div>
+            <div class="inbox" id="panel">
+                <i style="margin-right: 10px;" class="fa-solid fa-inbox"></i>
+                <span>Inbox</span>
+            </div>
+            <div class="starred" id="panel">
+                <i style="margin-right: 10px;" class="fa-solid fa-star"></i>
+                <span>Starred</span>
+            </div>
+            <div class="sent" id="panel">
+                <i style="margin-right: 10px;" class="fa-solid fa-paper-plane"></i>
+                <span>Sent</span>
+            </div>
+            <div class="drafts" id="panel">
+                <i style="margin-right: 10px;" class="fa-solid fa-file-alt"></i>
+                <span>Drafts</span>
+            </div>
+            <div class="trash" id="panel">
+                <i style="margin-right: 10px;" class="fa-solid fa-trash"></i>
+                <span>Trash</span>
+            </div>
+            <div class="spam" id="panel">
+                <i class="fa-solid fa-exclamation-circle"></i>
+                <span>
+            </div>
+        </div>
     </div>
 </body>
 </html>
